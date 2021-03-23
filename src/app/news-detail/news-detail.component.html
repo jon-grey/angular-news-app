@@ -1,0 +1,45 @@
+<div class="content">
+    <div *ngIf="article$ | async as article">
+        <img
+            [src]="article.urlToImage"
+            class="card-img-top"
+            [alt]="article.title"
+        />
+        <!-- Artile title, description, metadata -->
+        <div class="card-body">
+            <p class="card-text">
+                <small class="text-muted"
+                    >{{ article.source.name }}, {{ article.publishedAt }}</small
+                >
+            </p>
+            <h5 class="card-title">
+                {{ article.title }}
+            </h5>
+            <p class="card-text">{{ article.description }}</p>
+        
+            <!-- Read more button -->
+            <button (click)="goToArticle(article.url)" mat-icon-button class="news-app-menu" aria-label="icon-button back">
+                <p>Read more...</p>
+            </button>
+
+            <!-- Comments section -->
+            <li *ngFor="let comment of comments" class="comment user-comment">
+        
+                <div class="info">
+                    <a href="#">{{ comment.name }}</a>
+                    <span>{{ comment.date }}</span>
+                </div>
+        
+                <a class="avatar" href="#">
+                    <img [src]="comment.avatar" width="35" alt="Profile Avatar" title="Anie Silverston" />
+                </a>
+        
+                <p>{{comment.comment}}</p>
+        
+            </li>
+        </div>
+        
+
+    </div>
+
+</div>

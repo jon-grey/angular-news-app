@@ -1,0 +1,54 @@
+<div class="content">
+    <form (ngSubmit)="onSearch(searchForm)" #searchForm="ngForm">
+        <div class="input-group mb-3 mt-2">
+            <input
+                type="text"
+                class="form-control"
+                name="q"
+                placeholder="Search"
+                aria-label="Search"
+                aria-describedby="basic-addon2"
+                ngModel
+            />
+            <div class="input-group-append">
+                <button class="btn btn-outline-primary" type="submit">
+                    Search
+                </button>
+            </div>
+        </div>
+    </form>
+
+     <app-loader [isLoading]="isLoading"></app-loader>
+
+     <p *ngIf="totalResults > 1">
+        There are {{ totalResults }} total articles.
+    </p>
+    <p *ngIf="totalResults < 1">Found 1 article.</p>
+    <div *ngIf="!isLoading" class="card-columns">
+        <div class="card" *ngFor="let article of articles">
+            <img
+                [src]="article.urlToImage"
+                class="card-img-top"
+                [alt]="article.title"
+            />
+            <div class="card-body">
+                <p class="card-text">
+                    <small class="text-muted"
+                        >{{ article.source.name }}, {{ article.publishedAt }}</small
+                    >
+                </p>
+                <h5 class="card-title">
+                    <!-- OPEN NEW TAB with blank -->
+                    <!-- <a target="_blank" routerLink="/article" [state]="article">{{ article.title }}</a> -->
+                    <a routerLink="/article" [state]="article">{{ article.title }}</a>
+                </h5>
+                <p class="card-text">{{ article.description }}</p>
+                
+            </div>
+        </div>
+    </div> 
+
+    <!-- Search mat input with debouncing and mat progress bar for loading -->
+    <!-- List of fetched articles as snippets per the provided designs -->
+    <!-- No results indication -->
+</div>
